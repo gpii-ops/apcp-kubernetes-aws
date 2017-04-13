@@ -91,6 +91,16 @@ $ kubectl create -f https://raw.githubusercontent.com/kubernetes/kops/master/add
  * User: admin
  * Password: `kops get secrets kube --type secret -oplaintext`
 
+# Access to the cluster
+
+People with access to the S3 bucket used by kops can generate the kubecfg configuration this way:
+
+```
+kops export kubecfg k8s-dev.gpii.net
+```
+
+You can then access the cluster API server with kubectl locally.
+
 
 # Deploy GPII components
 
