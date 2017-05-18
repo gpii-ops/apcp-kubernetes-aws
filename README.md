@@ -235,3 +235,11 @@ $ curl -v http://a3eb37a021f1111e78718125bfe597ca-755612935.us-east-1.elb.amazon
 100  4773  100  4773    0     0  11670      0 --:--:-- --:--:-- --:--:-- 11698
 * Connection #0 to host a3eb37a021f1111e78718125bfe597ca-755612935.us-east-1.elb.amazonaws.com left intact
 ```
+
+# Terraform
+
+To manage the cluster using Terraform, first create the cluster using the `kops create cluster` command and add the options `--out=terraform --target=terraform` at the end.
+
+The directory [samples/terraform](samples/terraform) contains the output of the example cluster create above.
+
+Refer to the oficial kops [documentation](https://github.com/kubernetes/kops/blob/master/docs/terraform.md) for more information on how to use it with Terraform.
