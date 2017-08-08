@@ -10,10 +10,10 @@ spec:
     spec:
       containers:
       - name: couchdb-dataloader
-        image: gpii/preferences-server-data-loader
+        image: gpii/preferences-dataloader
         env:
-        - name: COUCHDB_HOST_ADDRESS
-          value: couchdb.default.svc.cluster.local:5984
+        - name: COUCHDB_URL
+          value: http://couchdb.default.svc.cluster.local:5984/preferences
         - name: CLEAR_INDEX
           value: 'true'
       restartPolicy: OnFailure

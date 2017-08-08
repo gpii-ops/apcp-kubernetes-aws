@@ -132,7 +132,7 @@ couchdb   100.70.151.178   <none>        5984/TCP   1h
 ## Load Preferences Test Data
 
 ```
-$ kubectl create -f dataload-job.yml
+$ kubectl create -f dataloader-job.yml
 ```
 
 Confirm job ran successfully at least once:
@@ -147,8 +147,8 @@ couchdb-dataloader   1         1            1h
 ## Preferences Server (exposed externally)
 
 ```
-$ kubectl create -f couchdb-deploy.yml
-$ kubectl create -f couchdb-svc.yml
+$ kubectl create -f preferences-deploy.yml
+$ kubectl create -f preferences-svc.yml
 ```
 
 Confirm deployment, pods and service were created:
@@ -182,8 +182,8 @@ $ curl http://ad3d67f471f0911e791dd0ae92f5239c-263508607.us-east-1.elb.amazonaws
 ## Flow Manager (exposed externally)
 
 ```
-$ kubectl create -f couchdb-deploy.yml
-$ kubectl create -f couchdb-svc.yml
+$ kubectl create -f flowmanager-deploy.yml
+$ kubectl create -f flowmanager-svc.yml
 ```
 
 Confirm deployment, pods and service were created:
