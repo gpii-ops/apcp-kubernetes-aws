@@ -34,10 +34,10 @@ aws s3api put-bucket-versioning --bucket $S3_BUCKET --versioning-configuration S
    - us-east-1c
 
 
-Use kops alpha channel to deploy Kubernetes 1.6 cluster:
+Use kops alpha channel to deploy a Kubernetes cluster:
 
 ```
-$ kops create cluster --channel alpha --kubernetes-version 1.6.1 --cloud=aws --zones us-east-1a,us-east-1b,us-east-1c --node-count 3 --master-zones us-east-1a,us-east-1b,us-east-1c --node-size t2.medium --master-size t2.medium k8s-dev.gpii.net
+$ kops create cluster --kubernetes-version 1.7.3 --cloud=aws --zones us-east-1a,us-east-1b,us-east-1c --node-count 3 --master-zones us-east-1a,us-east-1b,us-east-1c --node-size t2.medium --master-size t2.medium k8s-dev.gpii.net
 ```
 
 # Confirm configuration was created
@@ -84,7 +84,7 @@ Your cluster k8s-dev.gpii.net is ready
 # Deploy Dashboard add-on
 
 ```
-$ kubectl create -f https://raw.githubusercontent.com/kubernetes/kops/master/addons/kubernetes-dashboard/v1.5.0.yaml
+$ kubectl create -f https://raw.githubusercontent.com/kubernetes/kops/master/addons/kubernetes-dashboard/v1.6.3.yaml
 ```
 
  * URL: <https://api.k8s-dev.gpii.net/ui>
