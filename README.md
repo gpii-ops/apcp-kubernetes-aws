@@ -108,9 +108,16 @@ In the current configuration, the Preferences Server and Flow Manager will get e
 
 ## CouchDB
 
+These steps will deploy CouchDB using the node's local storage (ephemeral). If you want data to persist, see the next section ("CouchDB with Persistent Storage")
+
+Create CouchDB deployment and accompanying service to expose it internally to the cluster:
+
 ```
 $ kubectl create -f couchdb-deploy.yml
+deployment "couchdb" created
+
 $ kubectl create -f couchdb-svc.yml
+service "couchdb" created
 ```
 
 Confirm deployment, pods and service were created:
@@ -129,10 +136,44 @@ NAME      CLUSTER-IP       EXTERNAL-IP   PORT(S)    AGE
 couchdb   100.70.151.178   <none>        5984/TCP   1h
 ```
 
+## CouchDB with Persistent Storage
+
+Create [PersistentVolumeClaim](https://kubernetes.io/docs/concepts/storage/persistent-volumes), CouchDB deployment and accompanying service to expose it internally to the cluster:
+
+```
+$ kubectl create -f couchdb-persistentvolumeclaim.yml
+persistentvolumeclaim "couchdb-pvc" created
+
+$ kubectl create -f couchdb-deploy-persistent.yml
+deployment "couchdb" created
+
+$ kubectl create -f couchdb-svc.yml
+service "couchdb" created
+```
+
+Confirm persistent volume claim, pods and service were created:
+
+```
+$ kubectl get persistentvolumeclaim couchdb-pvc
+NAME          STATUS    CAPACITY                                   ACCESS MODES   STORAGECLASS   AGE
+couchdb-pvc   Bound     pvc-7884ea9c-81c0-11e7-9a77-02ad7260a0ec   5Gi            RWO            default   5m
+
+$ kubectl get deploy couchdb
+NAME      DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
+couchdb   1         1         1            1           5m
+
+$ kubectl get svc couchdb
+NAME      TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)    AGE
+couchdb   ClusterIP   100.65.132.208   <none>        5984/TCP   2h
+```
+
+By using the persistent volume claim, the CouchDB deployment and pods can be deleted and re-created without losing data.
+
 ## Load Preferences Test Data
 
 ```
 $ kubectl create -f dataloader-job.yml
+job "couchdb-dataloader" created
 ```
 
 Confirm job ran successfully at least once:
